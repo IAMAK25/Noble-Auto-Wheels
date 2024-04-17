@@ -1,0 +1,67 @@
+/* AuthenticationMain.css */
+.main{
+    width: 80vw;
+    height: 100vh;   
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin: 2rem; 
+    padding: 1rem;
+}
+
+.authentication-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 100vh;
+}
+
+h2{
+    font-weight: bolder;
+}
+
+.role-tabs {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #346699; /* Light navy background for the entire tab section */
+    border-radius: 8px; /* Add some border-radius for rounded corners */
+    padding: 10px; /* Add padding for spacing */
+}
+
+.role-tabs li {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff; /* Text color */
+    background-color: transparent; /* Transparent background initially */
+    border-radius: 8px; /* Rounded corners for each tab */
+    transition: background-color 0.3s;
+}
+
+.role-tabs li:hover {
+    background-color: #4d74b8; /* Darker navy on hover */
+}
+
+.role-tabs .react-tabs__tab--selected {
+    background-color: #002b4e; /* Dark navy for the selected tab */
+}
+
+/* Additional styling for improved readability and aesthetics */
+.authentication-container h2 {
+    margin-bottom: 20px;
+}
+
+.role-tabs li:hover,
+.role-tabs .react-tabs__tab--selected {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tab-panel{
+    margin-top: 2rem;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

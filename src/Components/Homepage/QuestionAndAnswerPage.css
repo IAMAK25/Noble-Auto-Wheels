@@ -1,0 +1,35 @@
+/* QuestionAndAnswerPage.css */
+.qna-page {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .faq-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .faq {
+    flex-basis: calc(50% - 20px);
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #e0e0e0; /* Updated border color for a softer look */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .faq:hover {
+    transform: scale(1.05);
+  }
+  
+  .faq h3 {
+    color: #333; /* Updated text color for better readability */
+  }
+  
+  .faq p {
+    margin-top: 10px;
+    color: #666; /* Updated text color for better readability */
+  }
+  

@@ -1,0 +1,91 @@
+/* ContactPage.css */
+.contact-page {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px;
+    background-color: #f8f9fa;
+  }
+  
+  span{
+    font-size: small;
+  }
+  .contact-info,
+  .contact-form {
+    flex-basis: 45%;
+    text-align: left;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* Light background */
+  }
+  
+  .contact-info h2,
+  .contact-form h2 {
+    color: #001f3f; /* Navy color for headings */
+  }
+  
+  p {
+    color: #333333; /* Dark text for paragraphs */
+  }
+  
+  .info-item {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  .info-item p{
+    margin-top: 20px;
+  }
+  
+  .info-item span {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #333333; /* Dark text */
+  }
+  
+  a {
+    color: #001f3f; /* Navy color for links */
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .contact-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h2,
+  label {
+    color: #001f3f; /* Navy color for headings and labels */
+    margin-bottom: 10px; /* Adjusted margin */
+  }
+  
+  input,
+  textarea {
+    padding: 10px;
+    margin-bottom: 15px; /* Adjusted margin */
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #ffffff; /* White background */
+    color: #001f3f; /* Navy text */
+  }
+  
+  button {
+    background-color: #001f3f; /* Navy color for buttons */
+    color: #ffffff; /* White text */
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #00152b; /* Darker navy on hover */
+  }
+  

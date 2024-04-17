@@ -1,0 +1,32 @@
+/* AboutUsPage.css */
+.about-us-page {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px;
+  }
+  
+  .about-us-content {
+    flex-basis: 60%;
+    text-align: left;
+  }
+  
+  .about-us-content h2 {
+    color: #333;
+  }
+  
+  .about-us-content p {
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  .team-image {
+    flex-basis: 30%;
+  }
+  
+  .team-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  

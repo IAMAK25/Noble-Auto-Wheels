@@ -1,0 +1,33 @@
+.features-section {
+    padding: 80px 0;
+    background-color: #f8f8f8;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .section-heading {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .feature-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .feature-card {
+    max-width: 300px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .feature-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #28a745; /* Adjust the color as needed */
+  }
+  

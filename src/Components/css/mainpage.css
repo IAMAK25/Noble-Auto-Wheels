@@ -1,0 +1,192 @@
+.wrapper {
+    position:relative;
+    margin-left: 0.5vh;
+    margin-right: 1vh;
+    
+  }
+  
+  .cor{
+    width: 90%;
+    
+  }
+
+
+  .carousel-image {
+    width: 100%;
+    height: 400px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensure the image covers the entire container */
+    
+}
+  
+  .icon {
+    height: 2rem;
+    width: 2rem;
+    background-color: white;
+    padding: 4px;
+    position: absolute;
+    box-sizing:border-box;
+    top:50%;
+    left:2px;
+    margin-left: 1vh;
+    margin-right: 1vh;
+    transform: translateY(-50%);
+  }
+  
+  .input {
+    height: 50px;
+    /* box-sizing:border-box; */
+    border: 1px solid #B2BEB5;
+    
+    padding-left: 4rem;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  /* mainpage.css */
+/* mainpage.css */
+/* mainpage.css */
+
+.container-wrapper {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+
+}
+
+.background-image {
+  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../Images/rent.jpg');
+  
+  background-size:cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 25rem;
+  object-fit: cover;
+  display: flex;
+  align-items: start;
+  justify-content: center; */
+
+  display: flex;
+  justify-content: center;
+}
+
+
+.container-content {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255);
+  border-radius: 25px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.namescontainer button{
+    border: none;
+    color: var(--primary-color);
+    font-size: 3vh;
+    font-weight: 700;
+}
+.namescontainer button:hover{
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  color: #808080;
+
+
+}
+
+
+/* CSS */
+.btnSave {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #405cf5;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+
+.btnSave:disabled {
+  cursor: default;
+}
+
+.btnSave:focus {
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .container-content {
+    width: 90%;
+  }
+
+  .input {
+    height: 40px;
+    font-size: 0.8rem;
+  }
+
+  .btn {
+    font-size: 0.8rem;
+  }
+
+  .bg-light {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .container-content {
+    width: 100%;
+  }
+
+  .input {
+    height: 30px;
+    font-size: 0.7rem;
+    margin: 1vh;
+  }
+
+  .btn {
+    font-size: 0.7rem;
+    display: flex;
+    flex-direction: start;
+  }
+
+  .icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    padding: 3px;
+    left: 1px;
+  }
+
+  .bg-light {
+    flex-direction: column;
+  }
+
+  .namescontainer{
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0;
+  }
+}

@@ -1,0 +1,46 @@
+span{
+    text-align: center;
+    color: var(--primary-color);
+    font-weight: 900;
+    font-size: 30px;
+    color: rgb(223, 49, 49);
+}
+.collapse{
+    display: flex;
+    justify-content: end;
+}
+li{
+    text-align: center;
+    font-weight: 700;
+    font-size: 3svh;
+    margin-right: 3.5vh;
+}
+.primary{
+    color: #303655;
+}
+.nav-item .btn,button{
+    border: 2px solid #303655;
+}
+.nav-item .btn:hover ,button:hover{
+    background-color: #303655;
+    color: white;
+}
+.nav-item .nav-link{
+ color: #303655;
+}
+.nav-item .nav-link:hover{
+    color: #3d4793;
+    font-size: 3.2svh;
+}
+
+@media only screen and (max-width: 600px) {
+    .collapse{
+        display: flex;
+        justify-content:center;
+    }
+    .nav-item .nav-link, .nav-item .nav-link button{
+        padding: 10px;
+    }
+  }
+
+
