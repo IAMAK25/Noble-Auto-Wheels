@@ -190,7 +190,7 @@ const SideNav = (props) => {
         <Divider />
 
 
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/profile/${id}`) }} >
+        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/profile`) }} >
           <ListItemButton
             sx={{
               minHeight: 48,
@@ -213,7 +213,7 @@ const SideNav = (props) => {
 
 
 
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/sales/${id}`) }}>
+        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/sales`) }}>
           <ListItemButton
             sx={{
               minHeight: 48,
@@ -256,7 +256,7 @@ const SideNav = (props) => {
 
 
 
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/Booking/${id}`) }}>
+        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/addData`) }}>
           <ListItemButton
             sx={{
               minHeight: 48,
@@ -273,7 +273,28 @@ const SideNav = (props) => {
             >
               <FaTachographDigital style={{ height: '3rem', width: '2rem' }} />
             </ListItemIcon>
-            <ListItemText primary={"Achievement"} sx={{ opacity: open ? 1 : 0 }} />
+            <ListItemText primary={"Add Data"} sx={{ opacity: open ? 1 : 0 }} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/DisplayData`) }}>
+          <ListItemButton
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? 'initial' : 'center',
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 5,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <FaTachographDigital style={{ height: '3rem', width: '2rem' }} />
+            </ListItemIcon>
+            <ListItemText primary={"Display Data"} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
         </ListItem>
 

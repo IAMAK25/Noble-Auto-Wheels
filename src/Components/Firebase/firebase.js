@@ -8,13 +8,14 @@ import { getFirestore } from 'firebase/firestore';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyC3ouTzsi8Kqr0MHS950GMzgq0Yi1C9k7o",
-    authDomain: "noble-auto-wheels-7aabb.firebaseapp.com",
-    projectId: "noble-auto-wheels-7aabb",
-    storageBucket: "noble-auto-wheels-7aabb.appspot.com",
-    messagingSenderId: "135198849219",
-    appId: "1:135198849219:web:3edc0e87b3a83a2f300a76",
-    measurementId: "G-N63507CY8Q"
+    apiKey: "AIzaSyBZRtNq930NNnzJTn-6JshEQNfKv8GXBO4",
+    authDomain: "women-safety-c16fa.firebaseapp.com",
+    databaseURL: "https://women-safety-c16fa-default-rtdb.firebaseio.com",
+    projectId: "women-safety-c16fa",
+    storageBucket: "women-safety-c16fa.appspot.com",
+    messagingSenderId: "608424091523",
+    appId: "1:608424091523:web:df732cabb44bd7025f60b6",
+    measurementId: "G-7VLLM4RCWT"
 };
 
 const app = initializeApp(firebaseConfig);

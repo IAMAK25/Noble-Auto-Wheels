@@ -20,6 +20,10 @@ import AdminLogin from './Components/Login/AdminLogin';
 import Profile from './Components/Dashboard/Dashpages/Profile';
 import AddBikes from './Components/Dashboard/Dashpages/AddBikes';
 import AddData from './Components/Dashboard/Dashpages/AddData';
+import LoginUser from './Components/userLogin/Login/LoginUser';
+import LoginFormUser from './Components/userLogin/Login/LoginFormUser';
+import Register from './Components/userLogin/Register/Register';
+import DisplayData from './Components/Dashboard/Dashpages/DisplayData';
 
 function App() {
   return (
@@ -57,7 +61,7 @@ function App() {
           <Route exact path="/test">
             <Test />
           </Route>
-          <Route exact path="/adddata">
+          <Route exact path="/addData">
             <AddData />
           </Route>
 
@@ -67,7 +71,7 @@ function App() {
           </Route>
 
           <Route exact path="/ChooseLogin">
-            <Choice />
+            <LoginUser />
           </Route>
 
           <Route exact path="/admin">
@@ -81,8 +85,19 @@ function App() {
           <Route exact path="/addBikes">
             <AddBikes />
           </Route>
+          <Route exact path="/DisplayData">
+            <DisplayData />
+          </Route>
 
 
+
+          {/* LOGIN */}
+          <Route exact path="/login-user">
+            <LoginFormUser />
+          </Route>
+          <Route exact path="/patient-register">
+            <Register />
+          </Route>
 
         </Switch>
         {/* <Footer /> */}

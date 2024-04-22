@@ -1,0 +1,9 @@
+.otp-container {
+    @apply flex .justify-content-between .gap-2;
+}
+.react-tel-input{
+    @apply !w-full py-6 !text-base mx-auto ;
+}
+.otp-container input{
+    @apply !mr-0 flex-1 py-5 outline-none;
+}

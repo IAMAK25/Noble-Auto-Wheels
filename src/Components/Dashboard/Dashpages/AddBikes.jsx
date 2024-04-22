@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Import useEffect
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Form from 'react-bootstrap/Form';
@@ -6,8 +6,8 @@ import Button from 'react-bootstrap/Button';
 import SideNav from '../SideNav';
 import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { storage, database, ref as rtdbRef, push, set, uploadBytesResumable, getDownloadURL } from '../../Firebase/firebase'; // Corrected import for database ref
-import { ref as storageRef } from 'firebase/storage'; // Import storage ref function
+import { storage, database, ref as rtdbRef, push, set, uploadBytesResumable, getDownloadURL } from '../../Firebase/firebase';
+import { ref as storageRef } from 'firebase/storage';
 import { onValue, child } from 'firebase/database';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -30,42 +30,28 @@ const AddBikes = () => {
         brakes: '',
         weight: '',
         description: '',
-        images: [] // Store uploaded images
+        images: []
     });
     const [displayedBikes, setDisplayedBikes] = useState([]);
 
-    // const fetchData = async () => {
-    //     try {
-    //         const bikesRef = rtdbRef(database, 'bikes'); // Check if 'bikes' is correctly defined
-    //         onValue(child(bikesRef), (snapshot) => { // Check if 'bikesRef' is valid
-    //             const bikes = snapshot.val();
-    //             if (bikes) {
-    //                 const bikesArray = Object.keys(bikes).map((key) => ({
-    //                     id: key,
-    //                     ...bikes[key]
-    //                 }));
-    //                 setDisplayedBikes(bikesArray);
-    //             } else {
-    //                 setDisplayedBikes([]); // Reset displayedBikes if no data
-    //             }
-    //         });
-    //     } catch (error) {
-    //         console.error('Error fetching bikes:', error);
-    //     }
-    // };
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const bikesRef = rtdbRef(database, '/bikes/'); // Ensure 'bikes' path is correctly defined
+                console.log('Fetching bikes data...');
+                const bikesRef = rtdbRef(database, '/bikes/');
+                console.log('Bikes ref:', bikesRef.toString()); // Log the reference URL
                 onValue(child(bikesRef), (snapshot) => {
                     const bikes = snapshot.val();
+                    console.log('Fetched bikes:', bikes); // Log the fetched bikes data
                     if (bikes) {
                         const bikesArray = Object.keys(bikes).map((key) => ({
                             id: key,
                             ...bikes[key]
                         }));
+                        console.log('Mapped bikes array:', bikesArray); // Log the mapped bikes array
                         setDisplayedBikes(bikesArray);
                     } else {
+                        console.log('No bikes data found.');
                         setDisplayedBikes([]);
                     }
                 });
@@ -75,8 +61,10 @@ const AddBikes = () => {
         };
 
 
-        fetchData(); // Call fetchData when the component mounts
-    }, []); // Empty d
+
+        fetchData();
+    }, []);
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -90,19 +78,17 @@ const AddBikes = () => {
         const files = Array.from(e.target.files);
         setNewBike((prevState) => ({
             ...prevState,
-            images: [...prevState.images, ...files] // Add new files to existing ones
+            images: [...prevState.images, ...files]
         }));
     };
 
     const handleSubmit = async () => {
         try {
-            // Push new bike data to the database
-            const bikesRef = rtdbRef(database, 'bikes'); // Use rtdbRef for Realtime Database reference
+            const bikesRef = rtdbRef(database, 'bikes');
             const newBikeRef = push(bikesRef);
             const bikeId = newBikeRef.key;
             await set(newBikeRef, newBike);
 
-            // Upload images to Firebase Storage
             const imageUrls = [];
             await Promise.all(newBike.images.map(async (image) => {
                 const imageRef = storageRef(storage, `bikes/${bikeId}/${uuidv4()}`);
@@ -111,10 +97,8 @@ const AddBikes = () => {
                 imageUrls.push(imageUrl);
             }));
 
-            // Update bike data with the image URLs in the database
-            await set(rtdbRef(database, `bikes/${bikeId}/imageUrls`), imageUrls); // Use rtdbRef for Realtime Database reference
+            await set(rtdbRef(database, `bikes/${bikeId}/imageUrls`), imageUrls);
 
-            // Reset form state
             setNewBike({
                 name: '',
                 price: '',
@@ -272,7 +256,7 @@ const AddBikes = () => {
                         </div>
                         <div>
                             <h2>Displayed Bikes</h2>
-                            <table>
+                            <table className="table">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -284,7 +268,6 @@ const AddBikes = () => {
                                         <th>Brakes</th>
                                         <th>Weight</th>
                                         <th>Description</th>
-                                        <th>Images</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -299,14 +282,10 @@ const AddBikes = () => {
                                             <td>{bike.brakes}</td>
                                             <td>{bike.weight}</td>
                                             <td>{bike.description}</td>
-                                            <td>
-                                                {bike.imageUrls && bike.imageUrls.map((url, i) => (
-                                                    <img key={i} src={url} alt={`Bike ${bike.name} Image ${i + 1}`} style={{ maxWidth: '100px', maxHeight: '100px', marginRight: '5px' }} />
-                                                ))}
-                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
+
                             </table>
                         </div>
                     </Box>

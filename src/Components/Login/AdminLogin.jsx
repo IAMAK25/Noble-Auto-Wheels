@@ -1,118 +1,145 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { withRouter } from 'react-router-dom';
+import UserLoginImg from '../Images/admin.png';
+import '../css/loginformuser.css';
+import { getAuth, signInWithMobileAndPassword } from 'firebase/auth';
+import { useState } from 'react';
+import { getDatabase, ref, query, equalTo, get, orderByChild } from 'firebase/database';
 import { useHistory } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AdminLoginImg from '../Images/regUser.jpg'; // import your admin login image
-import { getDatabase, ref, query, orderByChild, equalTo, get } from 'firebase/database';
+
+// import { useAuth } from '../../../AuthContext';
 
 const AdminLogin = ({ history }) => {
+    // const { login, setUserId } = useAuth();
+
     const database = getDatabase();
+    const auth = getAuth();
 
-    const [adminCredentials, setAdminCredentials] = useState({
-        username: '',
-        password: ''
-    });
+    const [mydata, setData] = useState(null);
+    const [user, setUser] = useState(
+        {
+            'Mobile': '',
+            'Password': ''
+        }
+    )
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setAdminCredentials({ ...adminCredentials, [name]: value });
-    };
+    const handleRegisterClick = () => {
+        history.push('/patient-register');
+    }
 
-    const handleAdminLogin = async (e) => {
-        e.preventDefault();
-
-        const adminsRef = ref(database, 'admins');
-        const queryRef = query(adminsRef, orderByChild('username'), equalTo(adminCredentials.username));
-
-        try {
-            const snapshot = await get(queryRef);
-            if (snapshot.exists()) {
-                const adminData = snapshot.val();
-                const adminId = Object.keys(adminData)[0];
-                const admin = adminData[adminId];
-
-                if (admin.password === adminCredentials.password) {
-                    // Successful login, navigate to admin dashboard
-                    history.push('/test');
-                    toast.success('Logged in successfully!');
-                } else {
-                    // Invalid password
-                    toast.error('Invalid password!');
-                }
-            } else {
-                // Admin not found
-                toast.error('Admin not found!');
+    const getData = (e) => {
+        const { value, name } = e.target;
+        setUser(() => {
+            return {
+                ...user,
+                [name]: value
             }
-        } catch (error) {
-            console.error('Error finding admin data:', error);
+        })
+    }
+    const addData = async (e) => {
+        e.preventDefault();
+        const phonePattern = /^\d{10}$/;
+
+        const { Mobile, Password } = user;
+
+        if (Mobile === '') {
+            toast.error('Mobile feild is  required')
+        }
+        else if (!phonePattern.test(Mobile)) {
+            toast.error('Phone number is incorrect')
+        }
+        else if (Password === '') {
+            toast.error('Password feild is  required')
+
+        } else {
+            const usersRef = ref(database, 'admin/');
+            const MobileToFind = user.Mobile; // Replace with the Mobile you want to search for
+            const queryRef = query(usersRef, orderByChild('Mobile'), equalTo(MobileToFind));
+
+            try {
+                const snapshot = await get(queryRef);
+                if (snapshot.exists()) {
+                    // The user with the specified Mobile was found
+                    const userData = snapshot.val();
+                    // console.log('User Data:', userData);
+                    const userId = Object.keys(userData)[0];
+                    // const userKey = '-Nhv1oVpIsKsIrv7ksjP'; // The key of the user data you want to access
+                    // console.log(userId);
+                    // Assuming you have fetched user data into a variable called userData
+                    const userd = userData[userId];
+
+                    if (userd) {
+                        if (userd.Password == user.Password) {
+                            // localStorage.setItem('userId', userId)
+                            // login(userId);
+                            // setUserId(userId);
+                            history.push("/profile");
+                            toast.success('Successfully Logged In!');
+                        } else {
+                            toast.error('Password and Mobile is Incorrect');
+                        }
+                    } else {
+                        toast.error('user Not Found')
+                    }
+
+
+                } else {
+                    console.log('User not found.');
+                }
+            } catch (error) {
+                console.error('Error finding user data:', error);
+            }
         }
     };
 
 
-    const handleRegisterClick = () => {
-        // Redirect to admin registration page
-        history.push('/admin/register');
-    };
-
+    const forgotPasswordRedirect = () => {
+        history.push('/ForgotPasswordPatient');
+    }
     return (
-        <div className="container-fluid">
+        <div className='container-fluid'>
             <ToastContainer />
-            <div className="row">
-                <div className="col-md-6">
-                    <div className="container">
-                        <h2 className="text-center">Admin Login</h2>
-                        <p className="text-center">Please enter your credentials to log in</p>
+            <div className='row'>
+                <div className='col-md-12 col-xl-6 col-xxl-6 col-sm-12'>
+                    <div className='container w-75 d-flex align-items-center justify-content-center'>
+                        <div className='text-primary'>
+                            <h2 className='text-center' style={{ marginTop: '10vh', textAlign: 'center' }}>Welcome Admin</h2>
+                            <p className='mt-0 pt-0 text-center ' color='#135078'>
+                                Log in to explore our latest bike collection, schedule test rides, and stay connected with your biking journey. Your satisfaction, our priority  </p>
+                        </div>
                     </div>
-                    <div className="d-flex align-items-center justify-content-center">
+                    <div className='d-flex align-items-center justify-content-center'>
                         <Form style={{ width: '70%', padding: '3vh' }}>
-                            <Form.Group className="mb-3" controlId="formBasicUsername">
-                                <Form.Label>Username</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter username"
-                                    name="username"
-                                    value={adminCredentials.username}
-                                    onChange={handleInputChange}
-                                />
-                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formBasicMobile">
+                                <Form.Label>Mobile Number</Form.Label>
+                                <Form.Control type="Mobile" placeholder="Enter Mobile" onChange={getData} name='Mobile' className="input-background-color" />
 
+                            </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Password"
-                                    name="password"
-                                    value={adminCredentials.password}
-                                    onChange={handleInputChange}
-                                />
+                                <Form.Control type="password" placeholder="Password" onChange={getData} name='Password' className="input-background-color" />
                             </Form.Group>
 
-                            <div className="text-end">
-                                <Button
-                                    className="btn btn-primary w-100"
-                                    onClick={handleAdminLogin}
-                                    variant="primary"
-                                    type="submit">
+                            <div>
+                                <Button className='btn btn-primary w-100' onClick={addData} variant="primary" type="submit">
                                     Login
                                 </Button>
                             </div>
-                            <div>
-                                <button
-                                    style={{ border: 'none', background: 'white', marginLeft: '0' }}
-                                    onClick={handleRegisterClick}>
-                                    <p>Don't have an Account? Register</p>
-                                </button>
-                            </div>
+
                         </Form>
                     </div>
                 </div>
-                <div className="col-md-6">
-                    <img src={AdminLoginImg} alt="Admin login" style={{ maxWidth: '80%', height: 'auto' }} />
+                <div className='col-md-12 col-xl-6 col-xxl-6 col-sm-12'>
+                    <img src={UserLoginImg} style={{ maxWidth: '70%', height: 'auto' }} />
                 </div>
             </div>
         </div>
     );
-};
+}
 
-export default AdminLogin;
+export default withRouter(AdminLogin);

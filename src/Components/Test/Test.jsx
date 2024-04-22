@@ -8,6 +8,7 @@ function Test() {
 
     const fetchData = async () => {
         const userRef = ref(db, 'users/ajay/fname');
+        console.log(userRef);
 
         try {
             const snapshot = await get(userRef);
