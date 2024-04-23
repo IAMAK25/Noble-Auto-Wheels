@@ -78,7 +78,7 @@ const AdminLogin = ({ history }) => {
                             // localStorage.setItem('userId', userId)
                             // login(userId);
                             // setUserId(userId);
-                            history.push("/profile");
+                            history.push("/Report");
                             toast.success('Successfully Logged In!');
                         } else {
                             toast.error('Password and Mobile is Incorrect');

@@ -5,7 +5,6 @@ import MuiDrawer from '@mui/material/Drawer';
 import { FaUser } from "react-icons/fa";
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import { TbGraphFilled } from "react-icons/tb";
 import CssBaseline from '@mui/material/CssBaseline';
 import { FaTachographDigital } from "react-icons/fa6";
@@ -19,27 +18,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { withRouter } from 'react-router-dom';
 import { RiMotorbikeFill } from "react-icons/ri";
-
-import { IoDocumentText } from "react-icons/io5";
-import { FaUserMd } from "react-icons/fa";
-import { FaCalendarAlt, FaHistory } from "react-icons/fa";
-import { IoDocumentsOutline } from "react-icons/io5";
-import { MdPayments, MdPeopleAlt } from "react-icons/md";
-import { BsFillMortarboardFill } from "react-icons/bs";
-import { MdArticle } from "react-icons/md";
-import { IoChatboxEllipses } from "react-icons/io5";
-import { GiAchievement } from "react-icons/gi";
-import { useParams } from 'react-router-dom';
-// import Schedule from './dashpages/Schedule';
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useState, useEffect } from 'react';
 import { auth, app, storage, database } from '../Firebase/firebase';
-import { BiCaretDownCircle } from "react-icons/bi";
-import { FaHandHoldingMedical } from "react-icons/fa";
+
 // import { useHistory } from 'react-router-dom';
 
 // import {useNavigate} from "react-router-dom";
@@ -213,7 +197,7 @@ const SideNav = (props) => {
 
 
 
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/sales`) }}>
+        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/Report`) }}>
           <ListItemButton
             sx={{
               minHeight: 48,
@@ -230,9 +214,11 @@ const SideNav = (props) => {
             >
               <TbGraphFilled style={{ height: '3rem', width: '2rem' }} />
             </ListItemIcon>
-            <ListItemText primary={"License"} sx={{ opacity: open ? 1 : 0 }} />
+            <ListItemText primary={"Sales Report"} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
         </ListItem>
+
+
         <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/addBikes`) }}>
           <ListItemButton
             sx={{
@@ -250,7 +236,28 @@ const SideNav = (props) => {
             >
               <RiMotorbikeFill style={{ height: '3rem', width: '2rem' }} />
             </ListItemIcon>
-            <ListItemText primary={"Qualification"} sx={{ opacity: open ? 1 : 0 }} />
+            <ListItemText primary={"Add Bikes"} sx={{ opacity: open ? 1 : 0 }} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/addSales`) }}>
+          <ListItemButton
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? 'initial' : 'center',
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <RiMotorbikeFill style={{ height: '3rem', width: '2rem' }} />
+            </ListItemIcon>
+            <ListItemText primary={"Add Sales"} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
         </ListItem>
 

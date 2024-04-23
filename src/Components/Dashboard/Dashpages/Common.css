@@ -1,0 +1,88 @@
+.display-bike{
+    margin: 1rem 0 ;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
+/* Report.js Css */
+.chart-box{
+    width: 90vw;
+    margin: 1rem 0 ;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+/* AddSales.css */
+
+/* Container */
+.container {
+    display: flex;
+  }
+  
+  /* SideNav */
+  .sidenav {
+    flex: 0 0 20%;
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+  
+  /* Main Content */
+  .main-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  /* Form */
+  .form-container {
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  /* Form Title */
+  .form-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #135078;
+  }
+  
+  /* Form Fields */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Form Label */
+  .form-label {
+    font-weight: bold;
+  }
+  
+  /* Form Input */
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  /* Submit Button */
+  .submit-button {
+    padding: 10px 20px;
+    background-color: #135078;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Submit Button Hover Effect */
+  .submit-button:hover {
+    background-color: #0d3a57;
+  }
+  

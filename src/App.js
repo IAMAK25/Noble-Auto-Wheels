@@ -24,6 +24,10 @@ import LoginUser from './Components/userLogin/Login/LoginUser';
 import LoginFormUser from './Components/userLogin/Login/LoginFormUser';
 import Register from './Components/userLogin/Register/Register';
 import DisplayData from './Components/Dashboard/Dashpages/DisplayData';
+import DetailsBike from './Components/Bikes/DetailsBike';
+import TestRide from './Components/Bikes/TestRide';
+import Report from './Components/Dashboard/Dashpages/Report';
+import AddSales from './Components/Dashboard/Dashpages/AddSales';
 
 function App() {
   return (
@@ -70,6 +74,17 @@ function App() {
             <Bikes />
           </Route>
 
+          <Route exact path="/Details/:id">
+            <DetailsBike />
+          </Route>
+
+          <Route exact path="/test-ride/:name">
+            <TestRide />
+          </Route>
+
+
+
+
           <Route exact path="/ChooseLogin">
             <LoginUser />
           </Route>
@@ -85,8 +100,14 @@ function App() {
           <Route exact path="/addBikes">
             <AddBikes />
           </Route>
+          <Route exact path="/addSales">
+            <AddSales />
+          </Route>
           <Route exact path="/DisplayData">
             <DisplayData />
+          </Route>
+          <Route exact path="/Report">
+            <Report />
           </Route>
 
 
@@ -100,7 +121,7 @@ function App() {
           </Route>
 
         </Switch>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </Router>
 

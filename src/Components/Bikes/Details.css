@@ -1,0 +1,164 @@
+.single-bike{
+    margin:1rem 6rem 1rem 6rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background-color: #fff;
+    
+}
+.first-box{
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    align-items: start;
+
+}
+
+.first-box img {
+    max-width: 50%; /* Set maximum width to 50% of the container */
+    max-height: 100%; /* Allow image to adjust height while maintaining aspect ratio */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 20px; /* Add spacing between image and information */
+}
+
+.top-section {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items:  start;
+    margin: 1rem;
+    padding-left: 1rem;
+}
+
+.top-section img {
+    flex-basis: 50%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 200px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    padding: 20px; /* Add spacing between image and information */
+}
+
+.review-section {
+    margin: 1rem 0 ;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  
+  .review-form {
+    margin-bottom: 20px;
+  }
+  
+  .review-form input,
+  .review-form textarea,
+  .review-form select,
+  .review-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .review-form select {
+    appearance: none;
+  }
+  
+  .review-form button {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .review-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .all-reviews {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+  }
+  
+  .review {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .review p {
+    margin-bottom: 10px;
+  }
+  
+  .review p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .star-rating {
+    display: inline-block;
+    color: #ffc107;
+  }
+
+  .inquiry-button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+    cursor: pointer;
+    width: 200px; /* Adjust width as needed */
+}
+
+.inquiry-button:hover {
+    background-color: darkred; /* Change color on hover if desired */
+}
+
+
+.key-features{
+    margin: 1rem 0 ;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.specs{
+    display: flex;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+.left{
+    flex-basis: 50%;
+}
+
+.spec{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label{
+    display: flex;
+}
+
+.summary{
+    margin: 1rem 0 ;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.youtube-video{
+    margin: 1rem 0 ;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}

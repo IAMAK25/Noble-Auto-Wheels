@@ -1,0 +1,79 @@
+/* BikeList.css */
+.bike-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .bike-card {
+    border: 1px solid #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    padding: 1rem;
+  }
+  
+  .bike-card a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .bike-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .bike-image {
+    height: 200px; /* Adjust as needed */
+    overflow: hidden;
+  }
+  
+  .bike-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .bike-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .search-bar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .mainList{
+      margin:1rem 4rem 1rem 4rem;
+      padding: 1.5rem;
+      border-radius: 20px;
+      background-color: #efefef;
+  }
+
+  .view-button {
+    display: inline-block;
+    width: 100%; /* Set the button width to 80% of the parent container's width */
+    max-width: 200px; /* Optionally, set a maximum width */
+    padding: 10px 20px;
+    background-color: transparent;
+    color: red;
+    border: 2px solid red;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.view-button:hover {
+    background-color: red;
+    color: white;
+}
