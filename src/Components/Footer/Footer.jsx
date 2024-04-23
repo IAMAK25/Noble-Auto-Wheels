@@ -2,6 +2,7 @@ import React from "react";
 import "./footer.css";
 import { FaInstagram, FaLinkedin, FaGoogle, FaFacebook } from "react-icons/fa";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -37,13 +38,13 @@ const Footer = () => {
                 <div className="footer-menu">
                     <ul className="f-menu">
                         <li>
-                            <a href="/">Home</a>
+                            <Link to="/">Home</Link>
                         </li>
                         <li>
-                            <a href="">About</a>
+                            <Link to="/about">About</Link>
                         </li>
                         <li>
-                            <a href="">Contact</a>
+                            <Link to="/bikes">Bikes</Link>
                         </li>
                     </ul>
                 </div>

@@ -98,7 +98,7 @@ const Register = ({ history }) => {
         // setUserId(userId); // Set the user ID in your application state
         setLoading(false);
         toast.success("Patient Added Successfully");
-        history.push('/');
+        history.push(`/userprofile/${userId}`);
       })
       .catch((err) => {
         console.log(err);
