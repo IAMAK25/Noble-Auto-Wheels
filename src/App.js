@@ -28,6 +28,10 @@ import DetailsBike from './Components/Bikes/DetailsBike';
 import TestRide from './Components/Bikes/TestRide';
 import Report from './Components/Dashboard/Dashpages/Report';
 import AddSales from './Components/Dashboard/Dashpages/AddSales';
+import TestRideShow from './Components/Dashboard/Dashpages/TestRideShow';
+import UserProfile from './Components/userLogin/Dashboard/Dashpages/UserProfile';
+import BookService from './Components/userLogin/Dashboard/Dashpages/BookService';
+import ViewService from './Components/Dashboard/Dashpages/ViewService';
 
 function App() {
   return (
@@ -109,6 +113,12 @@ function App() {
           <Route exact path="/Report">
             <Report />
           </Route>
+          <Route exact path="/TestRideDisplay">
+            <TestRideShow />
+          </Route>
+          <Route exact path="/ServiceBooking">
+            <ViewService />
+          </Route>
 
 
 
@@ -119,6 +129,16 @@ function App() {
           <Route exact path="/patient-register">
             <Register />
           </Route>
+
+          {/* User Dashboard */}
+          <Route exact path="/userprofile/:id">
+            <UserProfile />
+          </Route>
+          <Route exact path="/BookService/:id">
+            <BookService />
+          </Route>
+
+
 
         </Switch>
         <Footer />

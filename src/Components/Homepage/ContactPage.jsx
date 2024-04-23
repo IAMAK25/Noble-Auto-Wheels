@@ -1,8 +1,31 @@
 // ContactPage.jsx
-import React from 'react';
+import React, { useRef } from 'react';
 import './ContactPage.css';
+import emailjs from '@emailjs/browser';
+
 
 const ContactPage = () => {
+
+    const form = useRef();
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+
+        emailjs
+            .sendForm('service_x67jw16', 'template_9m3z0b5', form.current, {
+                publicKey: '36DTZU4hhxfjaTWtC',
+            })
+            .then(
+                () => {
+                    console.log('SUCCESS!');
+                },
+                (error) => {
+                    console.log('FAILED...', error.text);
+                },
+            );
+    };
+
+
     return (
         <div className="contact-page">
             <div className="contact-info">
@@ -24,13 +47,13 @@ const ContactPage = () => {
                 </div>
             </div>
             <div className="contact-form">
-                <form>
+                <form ref={form} onSubmit={sendEmail}>
                     <h2>Send Us a Message</h2>
                     <label htmlFor="name">Your Name</label>
-                    <input type="text" id="name" name="name" placeholder="Enter your name" />
+                    <input type="text" id="name" name="user_name" placeholder="Enter your name" />
 
                     <label htmlFor="email">Your Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" />
+                    <input type="email" id="email" name="user_email" placeholder="Enter your email" />
 
                     <label htmlFor="message">Your Message</label>
                     <textarea id="message" name="message" placeholder="Type your message"></textarea>

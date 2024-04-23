@@ -77,7 +77,7 @@ const LoginFormUser = ({ history }) => {
                             // localStorage.setItem('userId', userId)
                             // login(userId);
                             // setUserId(userId);
-                            history.push("/");
+                            history.push(`/userprofile/${userId}`);
                             console.log("done");
                             toast.success('Successfully Logged In!');
                         } else {

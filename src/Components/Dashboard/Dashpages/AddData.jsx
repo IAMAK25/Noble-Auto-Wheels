@@ -50,10 +50,10 @@ const AddData = () => {
                         <Toaster toastOptions={{ duration: 4000 }} />
                         <Form onSubmit={handleSubmit}>
                             <div className="d-flex justify-content-between">
-                                <h1 style={{ margin: '2vh', marginBottom: '4vh', color: '#135078' }}>Add Data</h1>
+                                <h1 style={{ margin: '2vh', marginBottom: '4vh', color: '#135078' }}>Insert Customer Details</h1>
                             </div>
                             <Form.Group className="mb-3" controlId="formName">
-                                <Form.Label>Name</Form.Label>
+                                <Form.Label>Customer Name</Form.Label>
                                 <Form.Control type="text" placeholder="Enter name" name="name" value={formData.name} onChange={handleChange} required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formDob">
@@ -69,8 +69,15 @@ const AddData = () => {
                                 {/* Replace the options with your bike models */}
                                 <Form.Control as="select" name="bikeModel" value={formData.bikeModel} onChange={handleChange} required>
                                     <option value="">Select bike model</option>
-                                    <option value="Model 1">Model 1</option>
-                                    <option value="Model 2">Model 2</option>
+                                    <option value="Yamaha YZF R15 V3">Yamaha YZF R15 V3</option>
+                                    <option value="Yamaha FZ S FI">Yamaha FZ S FI</option>
+                                    <option value="Yamaha MT-15">Yamaha MT-15</option>
+                                    <option value="Yamaha YZF R3">Yamaha YZF R3</option>
+                                    <option value="Yamaha Fascino 125">Yamaha Fascino 125</option>
+                                    <option value="Yamaha FZ 25">Yamaha FZ 25</option>
+                                    <option value="Yamaha Ray ZR 125">Yamaha Ray ZR 125</option>
+                                    <option value="Yamaha YZF R1">Yamaha YZF R1</option>
+                                    <option value="Yamaha FZ-X">Yamaha FZ-X</option>
                                 </Form.Control>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formMobile">

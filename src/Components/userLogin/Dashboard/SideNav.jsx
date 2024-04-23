@@ -22,11 +22,7 @@ import { withRouter } from 'react-router-dom';
 import { RiMotorbikeFill } from "react-icons/ri";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useState, useEffect } from 'react';
-import { auth, app, storage, database } from '../Firebase/firebase';
-import { MdAddChart } from "react-icons/md";
-import { FaUserEdit } from "react-icons/fa";
-import { FaChalkboardUser } from "react-icons/fa6";
-import { RiRidingFill } from "react-icons/ri";
+import { auth, app, storage, database } from '../../Firebase/firebase';
 
 // import { useHistory } from 'react-router-dom';
 
@@ -178,7 +174,7 @@ const SideNav = (props) => {
         <Divider />
 
 
-        {/* <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/profile`) }} >
+        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/userprofile/${id}`) }} >
           <ListItemButton
             sx={{
               minHeight: 48,
@@ -197,11 +193,11 @@ const SideNav = (props) => {
             </ListItemIcon>
             <ListItemText primary={"Profile"} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
-        </ListItem> */}
+        </ListItem>
 
 
 
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/Report`) }}>
+        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/BookService/${id}`) }}>
           <ListItemButton
             sx={{
               minHeight: 48,
@@ -218,140 +214,11 @@ const SideNav = (props) => {
             >
               <TbGraphFilled style={{ height: '3rem', width: '2rem' }} />
             </ListItemIcon>
-            <ListItemText secondary={"Sales Report"} sx={{ opacity: open ? 1 : 0, fontSize: 2 }} />
+            <ListItemText primary={"Sales Report"} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
         </ListItem>
 
 
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/addBikes`) }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              <RiMotorbikeFill style={{ height: '3rem', width: '2rem' }} />
-            </ListItemIcon>
-            <ListItemText secondary={"Bike Details"} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/addSales`) }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              <MdAddChart style={{ height: '3rem', width: '2rem' }} />
-            </ListItemIcon>
-            <ListItemText secondary={"Insert Sales Data"} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
-
-
-
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/addData`) }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 5,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              <FaUserEdit style={{ height: '3rem', width: '2rem' }} />
-            </ListItemIcon>
-            <ListItemText secondary={"Customer Data"} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/DisplayData`) }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 5,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              <FaChalkboardUser style={{ height: '3rem', width: '2rem' }} />
-            </ListItemIcon>
-            <ListItemText secondary={"Show Customer Data"} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
-
-
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/TestRideDisplay`) }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 5,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              <RiRidingFill style={{ height: '3rem', width: '2rem' }} />
-            </ListItemIcon>
-            <ListItemText secondary={"Test Ride Details"} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
-
-
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { history.push(`/ServiceBooking`) }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 5,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
-              }}
-            >
-              <FaTachographDigital style={{ height: '3rem', width: '2rem' }} />
-            </ListItemIcon>
-            <ListItemText secondary={"Service Details"} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        </ListItem>
 
         <Divider />
 

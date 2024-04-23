@@ -52,6 +52,7 @@ const DisplayData = () => {
             <SideNav />
             <div>
                 <Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{ width: '90vw' }}>
+                    <h1 style={{ margin: '2vh', marginBottom: '4vh', color: '#135078' }}>Customers Details</h1>
                     <div className=''>
                         <Form className="mb-3">
                             <Form.Control

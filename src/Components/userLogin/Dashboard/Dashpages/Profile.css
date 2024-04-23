@@ -1,0 +1,55 @@
+.bControl {
+  border: none;
+  background-color: transparent !important;
+}
+
+.mainContainer {
+  border: none;
+  border-radius: 25px;
+  padding: 2vh;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  position: relative;
+  margin-left: 3vw;
+  width: 80vw;
+}
+.profileimg {
+  /* position: absolute; */
+  /* align-items: center; */
+  /* border-radius:50%; */
+}
+
+.childContainer {
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+    rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  border-radius: 25px;
+  width: 80vw;
+  margin-left: 3vw;
+  padding: 3vh;
+}
+
+.label {
+  font-size: larger;
+}
+
+.pControl {
+  font-size: large;
+  font-weight: 500;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.desr {
+  width: 100%;
+  font-size: large;
+  font-weight: 400;
+  color: black;
+}
+.pControl::placeholder {
+  color: grey;
+}
+
+@media (max-width: 767px) {
+  .directioncolum {
+    flex-direction: column;
+  }
+}

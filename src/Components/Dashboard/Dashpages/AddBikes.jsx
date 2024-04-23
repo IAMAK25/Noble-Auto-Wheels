@@ -126,7 +126,7 @@ const AddBikes = () => {
                 <SideNav />
                 <div>
                     <Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{ width: '90vw' }}>
-                        <DrawerHeader />
+                        {/* <DrawerHeader /> */}
                         <div className=''>
                             <h1 style={{ margin: '2vh', marginBottom: '4vh', color: '#135078' }}>Bikes Information</h1>
                             <Form>
