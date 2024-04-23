@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import letterhead from '../../Images/letterhead.jpg'
 
 const PrintReceiptModal = ({ customer, onHide }) => {
     const handlePrint = () => {
@@ -21,14 +22,14 @@ const PrintReceiptModal = ({ customer, onHide }) => {
             <Modal.Body>
                 <div id="print-content">
                     <div style={{ marginBottom: '20px' }}>
-                        <img src="/path/to/letterhead.png" alt="Letterhead" style={{ maxWidth: '100%', height: 'auto' }} />
+                        <img src={letterhead} alt="Letterhead" style={{ maxWidth: '100%', height: 'auto' }} />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
-                            <p>Receipt Number: [Insert Receipt Number]</p>
+                            <p>Receipt Number: </p>
                         </div>
                         <div>
-                            <p>Date: [Insert Date]</p>
+                            <p>Date:         </p>
                         </div>
                     </div>
                     {customer && (
