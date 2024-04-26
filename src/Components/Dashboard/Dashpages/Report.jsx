@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import SideNav from '../SideNav';
 import Chart from 'chart.js/auto';
 import { getDatabase, ref, onValue } from 'firebase/database';
-import './Common.css'
+import './Common.css';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -17,44 +17,54 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const Report = () => {
     const [monthlySalesData, setMonthlySalesData] = useState({});
     const [bikeSalesData, setBikeSalesData] = useState({});
-    const [selectedYear, setSelectedYear] = useState('');
+    const [selectedYear1, setSelectedYear1] = useState('');
+    const [selectedYear2, setSelectedYear2] = useState('');
+    const [selectedBikeBrand, setSelectedBikeBrand] = useState('');
     const barChartRef = useRef(null); // Ref for the bar chart instance
     const pieChartRef = useRef(null); // Ref for the pie chart instance
+    const radarChartRef = useRef(null); // Ref for the radar chart instance
 
     useEffect(() => {
-        // Get a reference to the database for monthly sales data
-        const db = getDatabase();
-        const salesRef = ref(db, 'sales');
+        // Fetch monthly sales data and bike sales data from Firebase
+        const fetchData = async () => {
+            const db = getDatabase();
+            const salesRef = ref(db, 'sales');
+            const bikeSalesRef = ref(db, 'bike_sales');
 
-        // Fetch data from the database for monthly sales
-        onValue(salesRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                setMonthlySalesData(data);
-                // Extract years from the data and set the default selected year
-                const years = Object.keys(data);
-                setSelectedYear(years[0] || ''); // Select the first year by default
-            }
-        });
+            // Fetch data for monthly sales
+            onValue(salesRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    setMonthlySalesData(data);
+                    // Extract years from the data and set the default selected year
+                    const years = Object.keys(data);
+                    setSelectedYear1(years[0] || ''); // Select the first year by default for first dropdown
+                    setSelectedYear2(years[0] || ''); // Select the first year by default for second dropdown
+                }
+            });
 
-        // Get a reference to the database for bike sales data
-        const bikeSalesRef = ref(db, 'bike_sales');
+            // Fetch data for bike sales
+            onValue(bikeSalesRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    setBikeSalesData(data);
+                    // Extract bike brands from the data and set the default selected bike brand
+                    const bikeBrands = Object.keys(data);
+                    setSelectedBikeBrand(bikeBrands[0] || ''); // Select the first bike brand by default
+                }
+            });
+        };
 
-        // Fetch data from the database for bike sales
-        onValue(bikeSalesRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                setBikeSalesData(data);
-            }
-        });
-    }, []);
+        fetchData();
+    }, []); // No dependencies to ensure this runs only once
 
     useEffect(() => {
-        if (!selectedYear) return;
+        if (!selectedYear1 || !selectedYear2) return;
 
-        // Extract months and sales from data for the selected year
-        const salesData = monthlySalesData[selectedYear] || {};
-        const months = Object.keys(salesData).sort((a, b) => {
+        // Extract months and sales from data for the selected years
+        const salesData1 = monthlySalesData[selectedYear1] || {};
+        const salesData2 = monthlySalesData[selectedYear2] || {};
+        const months1 = Object.keys(salesData1).sort((a, b) => {
             const monthOrder = {
                 January: 1, February: 2, March: 3, April: 4,
                 May: 5, June: 6, July: 7, August: 8,
@@ -62,12 +72,18 @@ const Report = () => {
             };
             return monthOrder[a] - monthOrder[b];
         });
-
-        // Filter out months with empty sales data
-        const filteredMonths = months.filter(month => salesData[month] !== '');
-
-        // Get sales data for the filtered months
-        const sales = filteredMonths.map(month => salesData[month]);
+        const months2 = Object.keys(salesData2).sort((a, b) => {
+            const monthOrder = {
+                January: 1, February: 2, March: 3, April: 4,
+                May: 5, June: 6, July: 7, August: 8,
+                September: 9, October: 10, November: 11, December: 12
+            };
+            return monthOrder[a] - monthOrder[b];
+        });
+        const filteredMonths1 = months1.filter(month => salesData1[month] !== '');
+        const filteredMonths2 = months2.filter(month => salesData2[month] !== '');
+        const sales1 = filteredMonths1.map(month => salesData1[month]);
+        const sales2 = filteredMonths2.map(month => salesData2[month]);
 
         // Destroy existing bar chart instance if it exists
         if (barChartRef.current) {
@@ -75,14 +91,14 @@ const Report = () => {
         }
 
         // Update bar chart data
-        const barCtx = document.getElementById('monthlySales').getContext('2d');
+        const barCtx = document.getElementById('monthlySalesBar').getContext('2d');
         barChartRef.current = new Chart(barCtx, {
             type: 'bar',
             data: {
-                labels: filteredMonths,
+                labels: filteredMonths1,
                 datasets: [{
-                    label: 'Monthly Sales',
-                    data: sales,
+                    label: selectedYear1,
+                    data: sales1,
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
@@ -93,18 +109,12 @@ const Report = () => {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: 20 // Customize step size as needed
+                            stepSize: 20
                         }
                     }
                 }
             }
         });
-    }, [selectedYear, monthlySalesData]);
-
-    useEffect(() => {
-        if (!Object.keys(bikeSalesData).length || !selectedYear) return;
-
-        const sales = bikeSalesData[selectedYear];
 
         // Destroy existing pie chart instance if it exists
         if (pieChartRef.current) {
@@ -116,10 +126,10 @@ const Report = () => {
         pieChartRef.current = new Chart(pieCtx, {
             type: 'pie',
             data: {
-                labels: Object.keys(sales), // Use bike models as labels
+                labels: Object.keys(bikeSalesData[selectedBikeBrand] || {}),
                 datasets: [{
-                    label: 'Bike Sales by Model',
-                    data: Object.values(sales), // Use sales figures as data
+                    label: selectedBikeBrand,
+                    data: Object.values(bikeSalesData[selectedBikeBrand] || {}),
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -161,13 +171,44 @@ const Report = () => {
                 }
             }
         });
-    }, [selectedYear, bikeSalesData]);
 
+        // Destroy existing radar chart instance if it exists
+        if (radarChartRef.current) {
+            radarChartRef.current.destroy();
+        }
 
-
-
-
-
+        // Update radar chart data
+        const radarCtx = document.getElementById('monthlySalesRadar').getContext('2d');
+        radarChartRef.current = new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: filteredMonths1,
+                datasets: [{
+                    label: selectedYear1,
+                    data: sales1,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }, {
+                    label: selectedYear2,
+                    data: sales2,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }
+                }
+            }
+        });
+    }, [selectedYear1, selectedYear2, monthlySalesData, selectedBikeBrand, bikeSalesData]);
 
     return (
         <>
@@ -177,27 +218,53 @@ const Report = () => {
                     <Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{ width: '30vw' }}>
                         {/* <DrawerHeader /> */}
                         <h1 style={{ margin: '2vh', marginBottom: '4vh', color: '#135078' }}>Reports</h1>
-                        {/* Year selection dropdown */}
-                        <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
-                            {Object.keys(monthlySalesData).map(year => (
-                                <option key={year} value={year}>{year}</option>
-                            ))}
-                        </select>
-
-                        <div className='chart-main'>
-
-                            <div className='chart-box'>
-                                <h4>All Bikes Sales By Year</h4>
-                                <canvas id="monthlySales" width="500" height="500"></canvas>
+                        {/* Year selection dropdowns */}
+                        <div className='dropdown-container'>
+                            <div className='dropdown'>
+                                <label htmlFor="year1">Select Year 1: </label>
+                                <select id="year1" className='select' value={selectedYear1} onChange={(e) => setSelectedYear1(e.target.value)}>
+                                    {Object.keys(monthlySalesData).map(year => (
+                                        <option key={year} value={year}>{year}</option>
+                                    ))}
+                                </select>
                             </div>
-
-                            <div className='chart-box'>
-                                <h4>Single Bike Sales By Year</h4>
-                                <canvas id="bikeSalesPie" width="500" height="500"></canvas>
+                            <div className='dropdown'>
+                                <label htmlFor="year2">Select Year 2: </label>
+                                <select id="year2" className='select' value={selectedYear2} onChange={(e) => setSelectedYear2(e.target.value)}>
+                                    {Object.keys(monthlySalesData).map(year => (
+                                        <option key={year} value={year}>{year}</option>
+                                    ))}
+                                </select>
                             </div>
-
                         </div>
 
+                        {/* Bike brand selection dropdown for pie chart */}
+                        <div className='dropdown'>
+                            <label htmlFor="bikeBrand">Select Bike Brand for Pie Chart: </label>
+                            <select id="bikeBrand" className='select' value={selectedBikeBrand} onChange={(e) => setSelectedBikeBrand(e.target.value)}>
+                                {Object.keys(bikeSalesData).map(brand => (
+                                    <option key={brand} value={brand}>{brand}</option>
+                                ))}
+                            </select>
+                        </div>
+
+
+                        <div className='chart-main'>
+                            <div className='chart-box'>
+                                <h4>Monthly Sales Bar Chart</h4>
+                                <canvas id="monthlySalesBar" width="400" height="400"></canvas>
+                            </div>
+
+                            <div className='chart-box'>
+                                <h4>Bike Sales Pie Chart</h4>
+                                <canvas id="bikeSalesPie" width="400" height="300"></canvas>
+                            </div>
+
+                            <div className='chart-box'>
+                                <h4>Monthly Sales Radar Chart</h4>
+                                <canvas id="monthlySalesRadar" width="400" height="300"></canvas>
+                            </div>
+                        </div>
                     </Box>
                 </div>
             </Box>

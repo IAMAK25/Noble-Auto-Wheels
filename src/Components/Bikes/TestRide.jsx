@@ -4,6 +4,8 @@ import { getDatabase, ref, push, set } from 'firebase/database';
 import { toast, ToastContainer } from 'react-toastify'; // Import toast notifications
 import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
 import './TestRide.css';
+import { loadStripe } from '@stripe/stripe-js';
+
 
 function TestRide() {
     const { name } = useParams();
@@ -57,32 +59,67 @@ function TestRide() {
             });
     };
 
+    const handleMakePayment = async () => {
+        const stripe = await loadStripe('pk_test_51P99sQSJZGkFyAEhagD854egbsO43VkAmMFqCcXUUFxcDZKq2qivefBmZkfL3NQwmUMxuh76m7XclxOQwEkGNfq700th0rYzhE');
+
+        const body = {
+            product: name,
+            // customerName: formData.name, // Include customer name
+            // customerAddress: formData.address // Include customer address
+        };
+
+        const headers = {
+            "Content-Type": "application/json",
+        };
+
+        try {
+            const response = await fetch("http://localhost:8000/payment/create", {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(body)
+            });
+
+            const session = await response.json();
+
+            const result = await stripe.redirectToCheckout({ sessionId: session.id });
+
+            if (result.error) {
+                console.log("Error Stripe", result.error.message);
+            } else {
+                console.log("Redirecting to Stripe...");
+            }
+        } catch (error) {
+            console.error('Error making payment: ', error);
+            toast.error('An error occurred while making the payment. Please try again.');
+        }
+    };
+
     return (
         <div className="container-form">
-            <h2>Book a Test Ride for {name}</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="mobile">Mobile No:</label>
-                    <input type="text" id="mobile" name="mobile" value={formData.mobile} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="address">Address:</label>
-                    <input type="text" id="address" name="address" value={formData.address} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="date">Date:</label>
-                    <input type="date" id="date" name="date" value={formData.date} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="time">Time:</label>
-                    <input type="time" id="time" name="time" value={formData.time} onChange={handleChange} />
-                </div>
-                <button className='submit-button' type="submit">Submit</button>
-            </form>
+            <h2>Book {name}</h2>
+
+            <div>
+                <label htmlFor="name">Name:</label>
+                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
+            </div>
+            <div>
+                <label htmlFor="mobile">Mobile No:</label>
+                <input type="text" id="mobile" name="mobile" value={formData.mobile} onChange={handleChange} />
+            </div>
+            <div>
+                <label htmlFor="address">Address:</label>
+                <input type="text" id="address" name="address" value={formData.address} onChange={handleChange} />
+            </div>
+            {/* <div>
+                <label htmlFor="date">Date:</label>
+                <input type="date" id="date" name="date" value={formData.date} onChange={handleChange} />
+            </div>
+            <div>
+                <label htmlFor="time">Time:</label>
+                <input type="time" id="time" name="time" value={formData.time} onChange={handleChange} />
+            </div> */}
+            <button className='submit-button' onClick={handleMakePayment} type="submit">Submit</button>
+
             <ToastContainer /> {/* Container for toast notifications */}
         </div>
     );

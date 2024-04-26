@@ -50,15 +50,19 @@ const ContactPage = () => {
                 <form ref={form} onSubmit={sendEmail}>
                     <h2>Send Us a Message</h2>
                     <label htmlFor="name">Your Name</label>
-                    <input type="text" id="name" name="user_name" placeholder="Enter your name" />
+                    <input type="text" id="name" name="from_name" placeholder="Enter your name" />
 
                     <label htmlFor="email">Your Email</label>
-                    <input type="email" id="email" name="user_email" placeholder="Enter your email" />
+                    <input type="email" id="email" name="from_email" placeholder="Enter your email" />
+
+                    <label htmlFor="phone">Your Phone</label>
+                    <input type="text" id="phone" name="from_phone" placeholder="Enter your phone" />
 
                     <label htmlFor="message">Your Message</label>
                     <textarea id="message" name="message" placeholder="Type your message"></textarea>
 
-                    <button type="submit">Send Message</button>
+
+                    <button className='button-65' type="submit">Send Message</button>
                 </form>
             </div>
         </div>

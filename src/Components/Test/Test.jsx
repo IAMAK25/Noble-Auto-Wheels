@@ -26,6 +26,21 @@ function Test() {
         fetchData();
     }, []);
 
+    const [i, setI] = useState();
+
+    const hello = () => {
+        console.log("Hello Yash");
+    }
+
+    hello()
+    // 
+    useEffect(() => {
+        console.log("Hello World");
+    }, [])
+
+    useEffect(() => {
+        console.log(i);
+    }, i)
     return (
         <>
             <div>Test</div>

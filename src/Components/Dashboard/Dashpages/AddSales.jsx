@@ -45,6 +45,32 @@ const AddSales = () => {
         setSelectedBikeCount(e.target.value);
     };
 
+    const handleSaleSubmit = (e) => {
+        e.preventDefault();
+
+        // Ensure that year is selected
+        if (!year) {
+            console.error("Please select a year.");
+            return;
+        }
+
+        // Get a reference to the database
+        const db = getDatabase();
+        const salesRef = ref(db, `sales/${year}`);
+
+        // Write the data to the database
+        set(salesRef, monthlySales)
+            .then(() => {
+                console.log("Monthly sales data successfully written to database!");
+                // Clear form after submission
+                setYear('');
+                setMonthlySales({});
+            })
+            .catch((error) => {
+                console.error("Error writing monthly sales data to database: ", error);
+            });
+    };
+
     const handleBikeSalesSubmit = (e) => {
         e.preventDefault();
 
@@ -133,7 +159,7 @@ const AddSales = () => {
                         <div className='display-bike'>
                             <div className='form-container'>
                                 <h1 className='form-title'>Sales Data of Bike By Years</h1>
-                                <Form>
+                                <Form onSubmit={handleSaleSubmit}>
                                     <div className="form-group">
                                         <label htmlFor="year">Year:</label>
                                         <select

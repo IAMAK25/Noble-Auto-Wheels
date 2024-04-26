@@ -168,7 +168,7 @@ function DetailsBike() {
                     <p>On-Road Price, Nashik</p>
                     <p>Minimum Down Payment 10000/-</p>
                     <p>Average Rating: {renderRatingStars(averageRating)}</p>
-                    <button className="inquiry-button" onClick={() => handleInquiryClick(bike.name)}>Book Test Ride</button>
+                    <button className="inquiry-button" onClick={() => handleInquiryClick(bike.name)}>Book Bike</button>
                     <p style={{ fontSize: '12px', marginTop: '10px' }}>Don't miss out on the best offers this year</p>
                 </div>
             </div>

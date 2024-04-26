@@ -29,17 +29,34 @@
   }
   
   .bike-image img {
-    width: 100%;
-    height: 100%;
+    width: 300px;
+    height: 200px;
     object-fit: contain;
-  }
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+}
+
+
   
   .bike-info {
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+    height: 100%; /* Ensure the container takes the full height */
+    overflow: hidden; /* Hide overflowing content */
+}
+
+.bike-name {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    max-height: 3em; /* Limit the maximum height */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Display ellipsis for overflowed text */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
   
   .search-bar {
     width: 100%;

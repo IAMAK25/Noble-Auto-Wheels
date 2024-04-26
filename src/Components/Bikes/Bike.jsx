@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { getDatabase, ref, onValue, off } from 'firebase/database'; // Import off function for removing listener
-import './BikeList.css'; // Import CSS file for styling
+import { getDatabase, ref, onValue, off } from 'firebase/database';
+import './BikeList.css';
 import { Button } from 'react-bootstrap';
 
 function Bike() {
-    const history = useHistory(); // Access the history object
+    const history = useHistory();
 
     const [bikes, setBikes] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -39,15 +39,11 @@ function Bike() {
 
         const bikesListener = onValue(bikesRef, handleData, { errorCallback: onError });
 
-        // Clean up function to remove the Firebase listener when the component unmounts
         return () => {
-            off(bikesRef, 'value', handleData); // Remove the listener when the component unmounts
+            off(bikesRef, 'value', handleData);
         };
     }, []);
 
-
-
-    // Filter bikes based on search term
     const filteredBikes = bikes.filter(bike => {
         return bike.name.toLowerCase().includes(searchTerm.toLowerCase());
     });
@@ -61,7 +57,7 @@ function Bike() {
     }
 
     const handleDetailPage = (id) => {
-        history.push(`/Details/${id}`); // Navigate to the details page
+        history.push(`/Details/${id}`);
     }
 
     return (
@@ -78,12 +74,11 @@ function Bike() {
                 {filteredBikes.map(bike => (
                     <div className="bike-card" key={bike.id}>
                         <div className="bike-image">
-                            <img src={bike.imageUrls[0]} alt={bike.name} />
+                            <img src={bike.imageUrls[0]} alt={bike.name} style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }} />
                         </div>
                         <div className="bike-info">
-                            <h2>{bike.name}</h2>
-                            <p>Price: ${bike.price}</p>
-                            {/* Use an arrow function to pass the id */}
+                            <h2 className="bike-name">{bike.name}</h2>
+                            <p>Price: ₹{bike.price}</p>
                             <Button onClick={() => handleDetailPage(bike.id)} className="view-button">View Bike</Button>
                         </div>
                     </div>

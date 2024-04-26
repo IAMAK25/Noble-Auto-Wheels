@@ -91,3 +91,37 @@ margin-top: 1rem; /* Add some margin to the top */
   background-color: #0d3a57;
 }
 
+
+/* Common */
+.dropdown-container {
+  display: flex;
+  gap: 20px;
+}
+
+.dropdown {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-size: 16px;
+  outline: none;
+}
+
+.select:hover {
+  border-color: #999;
+}
+
+.select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}

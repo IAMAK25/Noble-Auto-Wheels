@@ -32,6 +32,7 @@ import TestRideShow from './Components/Dashboard/Dashpages/TestRideShow';
 import UserProfile from './Components/userLogin/Dashboard/Dashpages/UserProfile';
 import BookService from './Components/userLogin/Dashboard/Dashpages/BookService';
 import ViewService from './Components/Dashboard/Dashpages/ViewService';
+import Success from './Components/Test/Success';
 
 function App() {
   return (
@@ -71,6 +72,9 @@ function App() {
           </Route>
           <Route exact path="/addData">
             <AddData />
+          </Route>
+          <Route exact path="/success">
+            <Success />
           </Route>
 
 
