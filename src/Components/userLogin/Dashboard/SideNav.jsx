@@ -214,7 +214,7 @@ const SideNav = (props) => {
             >
               <TbGraphFilled style={{ height: '3rem', width: '2rem' }} />
             </ListItemIcon>
-            <ListItemText primary={"Sales Report"} sx={{ opacity: open ? 1 : 0 }} />
+            <ListItemText primary={"Bike Service"} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
         </ListItem>
 

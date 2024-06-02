@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getDatabase, ref, onValue, push, set } from 'firebase/database';
+import { getDatabase, ref, onValue, push, set, off } from 'firebase/database';
 import './Details.css';
 import { Toaster, toast } from "react-hot-toast";
-import Engine from '../Images/piston.png'
-import Torque from '../Images/torque-wrench.png'
-import Mileage from '../Images/download-speed.png'
-import Weight from '../Images/weight.png'
-import Brakes from '../Images/disc-brake.png'
-import Power from '../Images/power.png'
+import Engine from '../Images/piston.png';
+import Torque from '../Images/torque-wrench.png';
+import Mileage from '../Images/download-speed.png';
+import Weight from '../Images/weight.png';
+import Brakes from '../Images/disc-brake.png';
+import Power from '../Images/power.png';
 import YouTube from 'react-youtube';
 import { FaStar } from 'react-icons/fa';
-import dp from '../Images/dp.png'
+import dp from '../Images/dp.png';
 import { Link, useHistory } from 'react-router-dom';
 
 function DetailsBike() {
-    const history = useHistory()
+    const history = useHistory();
     const { id } = useParams();
     const [bike, setBike] = useState(null);
     const [reviews, setReviews] = useState([]);
@@ -27,16 +27,14 @@ function DetailsBike() {
     const [averageRating, setAverageRating] = useState(0);
     const [reviewsToShow, setReviewsToShow] = useState(3);
 
-
     const [formData, setFormData] = useState({
         customerName: '',
         reviewText: '',
         rating: ''
     });
 
-    const [showFullDescription, setShowFullDescription] = useState(false); // State to track description visibility
+    const [showFullDescription, setShowFullDescription] = useState(false);
 
-    // Function to toggle description visibility
     const toggleDescription = () => {
         setShowFullDescription(!showFullDescription);
     };
@@ -46,40 +44,35 @@ function DetailsBike() {
         const bikeRef = ref(db, `bikes/${id}`);
         const reviewsRef = ref(db, `reviews/${id}`);
 
-        const fetchBikeData = async () => {
-            try {
-                onValue(bikeRef, (snapshot) => {
-                    const bikeData = snapshot.val();
-                    if (bikeData) {
-                        setBike(bikeData);
-                        console.log(bikeData.url);
-                    } else {
-                        setError("Bike not found");
-                    }
-                    setLoading(false);
-                });
-            } catch (error) {
-                setError(error.message);
+        const fetchBikeData = () => {
+            onValue(bikeRef, (snapshot) => {
+                const bikeData = snapshot.val();
+                if (bikeData) {
+                    setBike(bikeData);
+                } else {
+                    setError("Bike not found");
+                }
                 setLoading(false);
-            }
+            }, (errorObject) => {
+                setError(errorObject.message);
+                setLoading(false);
+            });
         };
 
-        const fetchReviewsData = async () => {
-            try {
-                onValue(reviewsRef, (snapshot) => {
-                    const reviewsData = snapshot.val();
-                    if (reviewsData) {
-                        const reviewsArray = Object.values(reviewsData); // Convert reviews object to array
-                        setReviews(reviewsArray);
-                        calculateAverageRating(reviewsArray); // Calculate average rating
-                    } else {
-                        setReviews([]); // Set empty array if no reviews
-                        setAverageRating(0);
-                    }
-                });
-            } catch (error) {
-                console.error("Error fetching reviews:", error);
-            }
+        const fetchReviewsData = () => {
+            onValue(reviewsRef, (snapshot) => {
+                const reviewsData = snapshot.val();
+                if (reviewsData) {
+                    const reviewsArray = Object.values(reviewsData);
+                    setReviews(reviewsArray);
+                    calculateAverageRating(reviewsArray);
+                } else {
+                    setReviews([]);
+                    setAverageRating(0);
+                }
+            }, (errorObject) => {
+                console.error("Error fetching reviews:", errorObject);
+            });
         };
 
         const calculateAverageRating = (reviews) => {
@@ -92,12 +85,10 @@ function DetailsBike() {
         fetchReviewsData();
 
         return () => {
-            // Cleanup the listeners
-            onValue(bikeRef, null);
-            onValue(reviewsRef, null);
+            off(bikeRef);
+            off(reviewsRef);
         };
     }, [id]);
-
 
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
@@ -109,15 +100,14 @@ function DetailsBike() {
 
         try {
             const db = getDatabase();
-            const newReviewRef = push(ref(db, 'reviews/' + id)); // Generate a new key for the review
-            const newReviewData = { // Create the review data object
+            const newReviewRef = push(ref(db, 'reviews/' + id));
+            const newReviewData = {
                 customerName: formData.customerName,
                 reviewText: formData.reviewText,
                 rating: formData.rating
             };
-            await set(newReviewRef, newReviewData); // Save the review data to the database
+            await set(newReviewRef, newReviewData);
             toast.success('Review submitted successfully!');
-            // Clear the form data after submission
             setFormData({
                 customerName: '',
                 reviewText: '',
@@ -128,15 +118,10 @@ function DetailsBike() {
         }
     };
 
-    // Function to render star icons based on the rating
     const renderRatingStars = (rating) => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
-            if (i <= rating) {
-                stars.push(<FaStar key={i} color="#ffc107" />);
-            } else {
-                stars.push(<FaStar key={i} color="#e4e5e9" />);
-            }
+            stars.push(<FaStar key={i} color={i <= rating ? "#ffc107" : "#e4e5e9"} />);
         }
         return stars;
     };
@@ -154,9 +139,12 @@ function DetailsBike() {
     }
 
     const handleInquiryClick = (name) => {
-        history.push(`/test-ride/${name}`);
-    }
+        history.push(`/payment/${name}`);
+    };
 
+    const handleTestRideClick = (name) => {
+        history.push(`/test-ride/${name}`);
+    };
 
     return (
         <div className='single-bike'>
@@ -168,7 +156,10 @@ function DetailsBike() {
                     <p>On-Road Price, Nashik</p>
                     <p>Minimum Down Payment 10000/-</p>
                     <p>Average Rating: {renderRatingStars(averageRating)}</p>
-                    <button className="inquiry-button" onClick={() => handleInquiryClick(bike.name)}>Book Bike</button>
+                    <div className="button-container">
+                        <button className="inquiry-button" onClick={() => handleInquiryClick(bike.name)}>Book Bike</button>
+                        <button className="test-ride-button" onClick={() => handleTestRideClick(bike.name)}>Test Ride</button>
+                    </div>
                     <p style={{ fontSize: '12px', marginTop: '10px' }}>Don't miss out on the best offers this year</p>
                 </div>
             </div>
@@ -273,7 +264,6 @@ function DetailsBike() {
                 </div>
 
                 <div className="all-reviews">
-                    {/* Displaying reviews */}
                     {reviews.slice(0, reviewsToShow).map((review, index) => (
                         <div key={index} className="review">
                             <div style={{ display: 'flex' }}>
@@ -284,7 +274,6 @@ function DetailsBike() {
                             <p>{review.reviewText}</p>
                         </div>
                     ))}
-                    {/* View More button */}
                     {reviews.length > reviewsToShow && (
                         <button onClick={() => setReviewsToShow(reviewsToShow + 3)}>View More Reviews</button>
                     )}

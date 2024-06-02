@@ -28,7 +28,7 @@ const LoginFormUser = ({ history }) => {
     )
 
     const handleRegisterClick = () => {
-        history.push('/patient-register');
+        history.push('/user-register');
     }
 
     const getData = (e) => {

@@ -58,6 +58,25 @@ const Report = () => {
         fetchData();
     }, []); // No dependencies to ensure this runs only once
 
+    const linearRegression = (x, y) => {
+        const n = x.length;
+        const sumX = x.reduce((a, b) => a + b, 0);
+        const sumY = y.reduce((a, b) => a + b, 0);
+        const sumXY = x.map((val, i) => val * y[i]).reduce((a, b) => a + b, 0);
+        const sumX2 = x.map(val => val * val).reduce((a, b) => a + b, 0);
+
+        const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+        const intercept = (sumY - slope * sumX) / n;
+
+        return { slope, intercept };
+    };
+
+    const calculateTrendLine = (months, sales) => {
+        const monthIndices = months.map((_, i) => i + 1);
+        const { slope, intercept } = linearRegression(monthIndices, sales);
+        return monthIndices.map(x => slope * x + intercept);
+    };
+
     useEffect(() => {
         if (!selectedYear1 || !selectedYear2) return;
 
@@ -82,8 +101,11 @@ const Report = () => {
         });
         const filteredMonths1 = months1.filter(month => salesData1[month] !== '');
         const filteredMonths2 = months2.filter(month => salesData2[month] !== '');
-        const sales1 = filteredMonths1.map(month => salesData1[month]);
-        const sales2 = filteredMonths2.map(month => salesData2[month]);
+        const sales1 = filteredMonths1.map(month => parseFloat(salesData1[month]));
+        const sales2 = filteredMonths2.map(month => parseFloat(salesData2[month]));
+
+        // Calculate trend line
+        const trendLine = calculateTrendLine(filteredMonths1, sales1);
 
         // Destroy existing bar chart instance if it exists
         if (barChartRef.current) {
@@ -102,6 +124,14 @@ const Report = () => {
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
+                }, {
+                    type: 'line',
+                    label: 'Trend Line',
+                    data: trendLine,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    fill: false,
+                    borderWidth: 2,
+                    pointRadius: 0 // Hides the points on the trend line
                 }]
             },
             options: {
@@ -109,8 +139,13 @@ const Report = () => {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: 20
-                        }
+                            stepSize: 20,
+                            callback: function (value) {
+                                return value.toFixed(0); // Format values to avoid scientific notation
+                            }
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: Math.max(...sales1, ...sales2) + 10 // Set max value slightly higher than the maximum data value
                     }
                 }
             }
@@ -182,18 +217,18 @@ const Report = () => {
         radarChartRef.current = new Chart(radarCtx, {
             type: 'radar',
             data: {
-                labels: filteredMonths1,
+                labels: filteredMonths2,
                 datasets: [{
-                    label: selectedYear1,
-                    data: sales1,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }, {
                     label: selectedYear2,
                     data: sales2,
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }, {
+                    label: selectedYear1,
+                    data: sales1,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 }]
             },
@@ -209,6 +244,7 @@ const Report = () => {
             }
         });
     }, [selectedYear1, selectedYear2, monthlySalesData, selectedBikeBrand, bikeSalesData]);
+
 
     return (
         <>

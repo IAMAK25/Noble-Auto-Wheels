@@ -33,6 +33,7 @@ import UserProfile from './Components/userLogin/Dashboard/Dashpages/UserProfile'
 import BookService from './Components/userLogin/Dashboard/Dashpages/BookService';
 import ViewService from './Components/Dashboard/Dashpages/ViewService';
 import Success from './Components/Test/Success';
+import BikeTest from './Components/Bikes/BikeTest';
 
 function App() {
   return (
@@ -86,8 +87,11 @@ function App() {
             <DetailsBike />
           </Route>
 
-          <Route exact path="/test-ride/:name">
+          <Route exact path="/payment/:name">
             <TestRide />
+          </Route>
+          <Route exact path="/test-ride/:name">
+            <BikeTest />
           </Route>
 
 
@@ -130,7 +134,7 @@ function App() {
           <Route exact path="/login-user">
             <LoginFormUser />
           </Route>
-          <Route exact path="/patient-register">
+          <Route exact path="/user-register">
             <Register />
           </Route>
 

@@ -132,7 +132,7 @@ const AddSales = () => {
 
             // Fetch data from the database
             onValue(salesRef, (snapshot) => {
-                const data = snapshot.val();
+                const data = snapshot.val() || {}; // Ensure data is initialized with an empty object
                 setAllData(data);
             });
 
@@ -169,8 +169,8 @@ const AddSales = () => {
                                             onChange={(e) => setYear(e.target.value)}
                                         >
                                             <option value="">Select Year</option>
-                                            {[...Array(15)].map((_, index) => (
-                                                <option key={index} value={2010 + index}>{2010 + index}</option>
+                                            {[...Array(4)].map((_, index) => (
+                                                <option key={index} value={2021 + index}>{2021 + index}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -209,7 +209,7 @@ const AddSales = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {Object.keys(allData).map((year, index) => (
+                                        {allData && Object.keys(allData).map((year, index) => (
                                             <tr key={index}>
                                                 <td>{year}</td>
                                                 {monthNames.map((monthName, index) => (
@@ -238,17 +238,16 @@ const AddSales = () => {
                                             value={bikeBrand}
                                             onChange={(e) => setBikeBrand(e.target.value)}
                                         >
-                                            <option value="Select">Select Bike Model</option>
-                                            <option value="Yamaha YZF R15 V3">Yamaha YZF R15 V3</option>
-                                            <option value="Yamaha FZ S FI">Yamaha FZ S FI</option>
-                                            <option value="Yamaha MT-15">Yamaha MT-15</option>
-                                            <option value="Yamaha YZF R3">Yamaha YZF R3</option>
+                                            <option value="Yamaha MT-15 V2">Yamaha MT-15 V2</option>
                                             <option value="Yamaha Fascino 125">Yamaha Fascino 125</option>
-                                            <option value="Yamaha FZ 25">Yamaha FZ 25</option>
-                                            <option value="Yamaha Ray ZR 125">Yamaha Ray ZR 125</option>
-                                            <option value="Yamaha YZF R1">Yamaha YZF R1</option>
-                                            <option value="Yamaha FZ-X">Yamaha FZ-X</option>
-
+                                            <option value="R15M">R15M</option>
+                                            <option value="FZ-X Chrome">FZ-X Chrome</option>
+                                            <option value="R3">R3</option>
+                                            <option value="Yamaha MT-03">Yamaha MT-03</option>
+                                            <option value="FZ-FI">FZ-FI</option>
+                                            <option value="RayZR">RayZR</option>
+                                            <option value="Aerox 155 Version S">Aerox 155 Version S</option>
+                                            <option value="Aerox 155">Aerox 155</option>
                                         </select>
                                     </div>
                                     <div className="form-group">
@@ -260,8 +259,8 @@ const AddSales = () => {
                                             onChange={handleBikeYearChange}
                                         >
                                             <option value="">Select Year</option>
-                                            {[...Array(15)].map((_, index) => (
-                                                <option key={index} value={2010 + index}>{2010 + index}</option>
+                                            {[...Array(4)].map((_, index) => (
+                                                <option key={index} value={2021 + index}>{2021 + index}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -292,7 +291,7 @@ const AddSales = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {Object.entries(bikeSales).map(([year, yearData]) =>
+                                        {bikeSales && Object.entries(bikeSales).map(([year, yearData]) =>
                                             Object.entries(yearData).map(([bikeBrand, salesCount]) => (
                                                 <tr key={`${year}-${bikeBrand}`}>
                                                     <td>{year}</td>

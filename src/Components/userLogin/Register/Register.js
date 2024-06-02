@@ -46,7 +46,7 @@ const Register = ({ history }) => {
 
 
   const handleOnClickLogin = () => {
-    history.push('/patient-login');
+    history.push('/login-user');
   }
 
   const onSignup = () => {
@@ -207,9 +207,9 @@ const Register = ({ history }) => {
                       <div className='d-flex align-items-center justify-content-center'>
                         <Form style={{ padding: '5vh' }}>
                           <div className='container m-3 text-primary'>
-                            <h2 className='text-center' style={{ textAlign: 'center' }}>Welcome to TrustYou Doctor</h2>
+                            <h2 className='text-center' style={{ textAlign: 'center' }}>Welcome to Noble Auto Wheels</h2>
                             <p className='mt-0 pt-0 text-center' color='#135078'>
-                              Embark on your healthcare journey with us! Register now to access personalized care, book appointments seamlessly, and stay connected with your health information. Your well-being, our priority.
+                              Log in to explore our latest bike collection, schedule test rides, and stay connected with your biking journey. Your satisfaction, our priority
                             </p>
                           </div>
                           <div className='row'>
