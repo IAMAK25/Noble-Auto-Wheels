@@ -3,8 +3,10 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import SideNav from '../SideNav';
 import Chart from 'chart.js/auto';
+import 'chartjs-plugin-datalabels';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import './Common.css';
+import { linearRegression, linearRegressionLine } from 'simple-statistics';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -20,9 +22,9 @@ const Report = () => {
     const [selectedYear1, setSelectedYear1] = useState('');
     const [selectedYear2, setSelectedYear2] = useState('');
     const [selectedBikeBrand, setSelectedBikeBrand] = useState('');
-    const barChartRef = useRef(null); // Ref for the bar chart instance
-    const pieChartRef = useRef(null); // Ref for the pie chart instance
-    const radarChartRef = useRef(null); // Ref for the radar chart instance
+    const barChartRef = useRef(null);
+    const pieChartRef = useRef(null);
+    const radarChartRef = useRef(null);
 
     useEffect(() => {
         // Fetch monthly sales data and bike sales data from Firebase
@@ -56,25 +58,13 @@ const Report = () => {
         };
 
         fetchData();
-    }, []); // No dependencies to ensure this runs only once
-
-    const linearRegression = (x, y) => {
-        const n = x.length;
-        const sumX = x.reduce((a, b) => a + b, 0);
-        const sumY = y.reduce((a, b) => a + b, 0);
-        const sumXY = x.map((val, i) => val * y[i]).reduce((a, b) => a + b, 0);
-        const sumX2 = x.map(val => val * val).reduce((a, b) => a + b, 0);
-
-        const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-        const intercept = (sumY - slope * sumX) / n;
-
-        return { slope, intercept };
-    };
+    }, []);
 
     const calculateTrendLine = (months, sales) => {
         const monthIndices = months.map((_, i) => i + 1);
-        const { slope, intercept } = linearRegression(monthIndices, sales);
-        return monthIndices.map(x => slope * x + intercept);
+        const regression = linearRegression(monthIndices.map((x, i) => [x, sales[i]]));
+        const regressionLine = linearRegressionLine(regression);
+        return monthIndices.map(x => regressionLine(x));
     };
 
     useEffect(() => {
@@ -135,6 +125,11 @@ const Report = () => {
                 }]
             },
             options: {
+                plugins: {
+                    datalabels: {
+                        color: 'black'
+                    }
+                },
                 scales: {
                     y: {
                         beginAtZero: true,
@@ -245,14 +240,12 @@ const Report = () => {
         });
     }, [selectedYear1, selectedYear2, monthlySalesData, selectedBikeBrand, bikeSalesData]);
 
-
     return (
         <>
             <Box sx={{ display: 'flex' }}>
                 <SideNav />
                 <div>
                     <Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{ width: '30vw' }}>
-                        {/* <DrawerHeader /> */}
                         <h1 style={{ margin: '2vh', marginBottom: '4vh', color: '#135078' }}>Reports</h1>
                         {/* Year selection dropdowns */}
                         <div className='dropdown-container'>
@@ -283,7 +276,6 @@ const Report = () => {
                                 ))}
                             </select>
                         </div>
-
 
                         <div className='chart-main'>
                             <div className='chart-box'>
